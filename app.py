@@ -16,7 +16,7 @@ st.set_page_config(
     page_title="MORNING",
     page_icon="☀️",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
 
@@ -36,28 +36,36 @@ st.markdown("""
 
 
 /* =========================================================
-   FONDO GENERAL
+   FONDO NEGRO CON DEGRADADO SUAVE
    ========================================================= */
 
 .stApp {
     background:
         radial-gradient(
-            circle at 15% 20%,
-            rgba(86, 184, 238, 0.08),
-            transparent 28%
+            circle at 12% 15%,
+            rgba(101, 199, 245, 0.10) 0%,
+            rgba(101, 199, 245, 0.04) 20%,
+            transparent 42%
         ),
         radial-gradient(
-            circle at 85% 70%,
-            rgba(255, 222, 70, 0.08),
-            transparent 30%
+            circle at 88% 78%,
+            rgba(255, 228, 91, 0.09) 0%,
+            rgba(255, 228, 91, 0.03) 22%,
+            transparent 45%
         ),
-        #18181d;
+        linear-gradient(
+            135deg,
+            #121217 0%,
+            #18181d 45%,
+            #1d1d23 100%
+        );
 
     color: #ffffff;
+    min-height: 100vh;
 }
 
 [data-testid="stAppViewContainer"] {
-    background: #18181d;
+    background: transparent;
 }
 
 [data-testid="stHeader"] {
@@ -76,50 +84,23 @@ st.markdown("""
 
 
 /* =========================================================
-   HERO
+   TÍTULO PRINCIPAL
    ========================================================= */
-
-.hero {
-    min-height: 520px;
-
-    display: flex;
-    align-items: center;
-
-    padding: 35px 0;
-}
-
-
-/* =========================================================
-   TEXTO IZQUIERDA
-   ========================================================= */
-
-.hero-left {
-    padding: 35px 30px 35px 15px;
-}
 
 .small-title {
     color: #65c7f5;
-
     font-size: 15px;
-
     font-weight: 800;
-
     letter-spacing: 4px;
-
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 .main-title {
     color: #ffffff;
-
     font-size: 88px;
-
     line-height: 0.92;
-
     font-weight: 900;
-
     letter-spacing: -4px;
-
     margin: 0 0 25px 0;
 }
 
@@ -129,99 +110,63 @@ st.markdown("""
 
 .hero-description {
     color: #bdbdc5;
-
     font-size: 18px;
-
     line-height: 1.7;
-
     max-width: 520px;
-
-    margin-bottom: 28px;
+    margin-bottom: 25px;
 }
-
-
-/* =========================================================
-   ETIQUETA
-   ========================================================= */
 
 .tag {
     display: inline-block;
-
     background: #ffe45b;
-
     color: #18181d;
-
     padding: 9px 17px;
-
     border-radius: 30px;
-
     font-size: 12px;
-
     font-weight: 900;
-
     letter-spacing: 1px;
-
-    margin-bottom: 18px;
 }
 
 
 /* =========================================================
-   IMAGEN DERECHA
+   IMAGEN
    ========================================================= */
 
 .image-card {
-
     background: #f8f8f4;
-
     border-radius: 35px;
-
     padding: 18px;
-
     border: 1px solid rgba(255,255,255,0.08);
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,0.35);
-
+    box-shadow: 0 25px 70px rgba(0,0,0,0.35);
     transform: rotate(1deg);
-
     overflow: hidden;
-}
-
-.image-card img {
-    border-radius: 25px;
 }
 
 
 /* =========================================================
-   CAMPO DE TEXTO
+   TARJETA DE ENTRADA
    ========================================================= */
 
 .input-card {
-
-    background: #232329;
-
+    background: rgba(35,35,41,0.92);
     border: 1px solid #34343c;
-
     border-radius: 26px;
-
     padding: 28px;
-
-    margin-top: 20px;
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,0.18);
+    margin-top: 35px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.20);
 }
 
 .input-title {
-
     color: #ffffff;
-
     font-size: 23px;
-
     font-weight: 900;
-
     margin-bottom: 16px;
 }
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
 
 .stTextInput > div > div > input {
 
@@ -229,7 +174,7 @@ st.markdown("""
 
     color: #18181d !important;
 
-    border: 3px solid #ffe45b !important;
+    border: 3px solid #65c7f5 !important;
 
     border-radius: 16px !important;
 
@@ -243,15 +188,13 @@ st.markdown("""
 }
 
 .stTextInput label {
-
     color: #c9c9cf !important;
-
     font-weight: 700 !important;
 }
 
 
 /* =========================================================
-   BOTÓN ANALIZAR
+   BOTÓN
    ========================================================= */
 
 .stButton {
@@ -276,8 +219,7 @@ st.markdown("""
 
     font-weight: 900 !important;
 
-    box-shadow:
-        0 7px 0 #bda62f;
+    box-shadow: 0 7px 0 #bda62f;
 
     transition: 0.18s ease;
 }
@@ -290,13 +232,12 @@ st.markdown("""
 
     transform: translateY(3px);
 
-    box-shadow:
-        0 4px 0 #397c9e;
+    box-shadow: 0 4px 0 #397c9e;
 }
 
 
 /* =========================================================
-   RESULTADOS
+   RESULTADO
    ========================================================= */
 
 .result-card {
@@ -311,8 +252,7 @@ st.markdown("""
 
     margin-top: 30px;
 
-    box-shadow:
-        0 20px 45px rgba(0,0,0,0.25);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.25);
 }
 
 .result-title {
@@ -402,6 +342,8 @@ st.markdown("""
     text-align: center;
 
     color: #18181d;
+
+    border: 2px solid #d5d5cf;
 }
 
 .metrica-nombre {
@@ -431,9 +373,14 @@ st.markdown("""
 
 section[data-testid="stSidebar"] {
 
-    background: #202026;
+    background:
+        linear-gradient(
+            180deg,
+            #1c1c22 0%,
+            #15151a 100%
+        );
 
-    border-right: 1px solid #38383f;
+    border-right: 1px solid #34343c;
 }
 
 section[data-testid="stSidebar"] h2,
@@ -446,14 +393,31 @@ section[data-testid="stSidebar"] h3 {
 
 section[data-testid="stSidebar"] p {
 
-    color: #c7c7cc !important;
+    color: #d0d0d5 !important;
 
     line-height: 1.7;
+
+    font-size: 15px;
+}
+
+.sidebar-title {
+    color: #65c7f5;
+    font-size: 23px;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+.sidebar-section-title {
+    color: #ffe45b;
+    font-size: 18px;
+    font-weight: 900;
+    margin-top: 20px;
+    margin-bottom: 8px;
 }
 
 
 /* =========================================================
-   LOTTIE
+   ANIMACIÓN
    ========================================================= */
 
 .lottie-box {
@@ -473,42 +437,24 @@ section[data-testid="stSidebar"] p {
 
 
 /* =========================================================
-   DIVISORES
-   ========================================================= */
-
-hr {
-
-    border-color: #33333a;
-}
-
-
-/* =========================================================
    SCROLLBAR
    ========================================================= */
 
 html {
-
     scrollbar-width: thin;
-
-    scrollbar-color:
-        #ffe45b
-        #18181d;
+    scrollbar-color: #ffe45b #18181d;
 }
 
 ::-webkit-scrollbar {
-
     width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-
     background: #18181d;
 }
 
 ::-webkit-scrollbar-thumb {
-
     background: #ffe45b;
-
     border-radius: 20px;
 }
 
@@ -537,7 +483,7 @@ translator = Translator()
 
 
 # =========================================================
-# FUNCIONES
+# FUNCIÓN PARA CARGAR ANIMACIONES
 # =========================================================
 
 def cargar_animacion(nombre):
@@ -565,7 +511,6 @@ def cargar_animacion(nombre):
 # =========================================================
 
 palabras_positivas = {
-
     "feliz",
     "felices",
     "felicidad",
@@ -637,7 +582,6 @@ palabras_positivas = {
 # =========================================================
 
 palabras_negativas = {
-
     "triste",
     "tristes",
     "tristeza",
@@ -708,7 +652,7 @@ palabras_negativas = {
 
 
 # =========================================================
-# ANALIZAR ESPAÑOL
+# ANALIZAR PALABRAS EN ESPAÑOL
 # =========================================================
 
 def analizar_espanol(texto):
@@ -743,15 +687,10 @@ col_izquierda, col_derecha = st.columns(
 
 
 # =========================================================
-# IZQUIERDA
+# PARTE IZQUIERDA
 # =========================================================
 
 with col_izquierda:
-
-    st.markdown(
-        '<div class="hero-left">',
-        unsafe_allow_html=True
-    )
 
     st.markdown(
         '<div class="small-title">SENTIMENT ANALYSIS</div>',
@@ -785,14 +724,9 @@ with col_izquierda:
         unsafe_allow_html=True
     )
 
-    st.markdown(
-        '</div>',
-        unsafe_allow_html=True
-    )
-
 
 # =========================================================
-# DERECHA - IMAGEN
+# PARTE DERECHA
 # =========================================================
 
 with col_derecha:
@@ -818,12 +752,13 @@ with col_derecha:
 
 
 # =========================================================
-# CAMPO DE ANÁLISIS
+# CAMPO DE TEXTO
 # =========================================================
 
 st.markdown(
     """
     <div class="input-card">
+
         <div class="input-title">
             💬 ¿Cómo te sientes hoy?
         </div>
@@ -848,34 +783,49 @@ st.markdown(
 
 
 # =========================================================
-# SIDEBAR
+# SIDEBAR - INDICACIONES
 # =========================================================
 
 with st.sidebar:
 
-    st.subheader("MORNING")
+    st.markdown(
+        '<div class="sidebar-title">Polaridad y Subjetividad</div>',
+        unsafe_allow_html=True
+    )
 
-    st.write(
+    st.markdown(
         """
-        **Polaridad**
+        <div class="sidebar-section-title">
+            Polaridad
+        </div>
 
-        -1 → Negativo
+        <p>
+        Indica si el sentimiento expresado en el texto
+        es positivo, negativo o neutral.
+        Su valor oscila entre <b>-1</b> (muy negativo)
+        y <b>1</b> (muy positivo), con <b>0</b>
+        representando un sentimiento neutral.
+        </p>
 
-        0 → Neutral
+        <div class="sidebar-section-title">
+            Subjetividad
+        </div>
 
-        1 → Positivo
-
-        **Subjetividad**
-
-        0 → Objetivo
-
-        1 → Subjetivo
-        """
+        <p>
+        Mide cuánto del contenido es subjetivo
+        (opiniones, emociones, creencias) frente a
+        objetivo (hechos).
+        Va de <b>0</b> a <b>1</b>, donde <b>0</b>
+        es completamente objetivo y <b>1</b>
+        es completamente subjetivo.
+        </p>
+        """,
+        unsafe_allow_html=True
     )
 
 
 # =========================================================
-# ANALIZAR
+# ANALIZAR AL PRESIONAR EL BOTÓN
 # =========================================================
 
 if enviar:
@@ -1008,13 +958,11 @@ if enviar:
 
 
             # =================================================
-            # RESULTADO
+            # TARJETA DE RESULTADO
             # =================================================
 
             st.markdown(
-                """
-                <div class="result-card">
-                """,
+                '<div class="result-card">',
                 unsafe_allow_html=True
             )
 
@@ -1022,6 +970,11 @@ if enviar:
                 '<div class="result-title">RESULTADO</div>',
                 unsafe_allow_html=True
             )
+
+
+            # =================================================
+            # ESTADO
+            # =================================================
 
             st.markdown(
                 f"""
@@ -1035,7 +988,7 @@ if enviar:
 
 
             # =================================================
-            # MÉTRICAS
+            # MÉTRICAS - CORREGIDAS
             # =================================================
 
             st.markdown(
@@ -1073,7 +1026,7 @@ if enviar:
 
 
             # =================================================
-            # TEXTO ANALIZADO
+            # FRASE ANALIZADA
             # =================================================
 
             st.markdown(
@@ -1093,6 +1046,7 @@ if enviar:
                 """,
                 unsafe_allow_html=True
             )
+
 
             st.markdown(
                 "</div>",
