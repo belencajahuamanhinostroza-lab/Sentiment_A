@@ -13,36 +13,51 @@ import re
 # =========================================================
 
 st.set_page_config(
-    page_title="SmileTime - Análisis de Sentimiento",
-    page_icon="😊",
-    layout="centered"
+    page_title="MORNING",
+    page_icon="☀️",
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
 
 # =========================================================
-# INTERFAZ - ESTILO SMILETIME
+# ESTILOS
 # =========================================================
 
 st.markdown("""
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
 
 * {
     font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
 }
 
+
 /* =========================================================
-   FONDO
+   FONDO GENERAL
    ========================================================= */
 
 .stApp {
-    background: #f27dde;
-    color: #111111;
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(86, 184, 238, 0.08),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 70%,
+            rgba(255, 222, 70, 0.08),
+            transparent 30%
+        ),
+        #18181d;
+
+    color: #ffffff;
 }
 
 [data-testid="stAppViewContainer"] {
-    background: #f27dde;
+    background: #18181d;
 }
 
 [data-testid="stHeader"] {
@@ -55,79 +70,125 @@ st.markdown("""
    ========================================================= */
 
 .main .block-container {
-    max-width: 850px;
-    padding-top: 35px;
-    padding-bottom: 60px;
+    max-width: 1250px;
+    padding: 55px 60px 80px 60px;
 }
 
 
 /* =========================================================
-   TÍTULO
+   HERO
    ========================================================= */
 
-h1 {
-    color: #111111 !important;
-    font-size: 46px !important;
-    font-weight: 900 !important;
-    text-align: center;
-    letter-spacing: -1px;
-    margin-bottom: 5px !important;
-}
-
-.subtitulo {
-    text-align: center;
-    color: #111111;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 25px;
-}
-
-
-/* =========================================================
-   LOGO
-   ========================================================= */
-
-.logo-smile {
-    width: 95px;
-    height: 95px;
-    background: #ffe500;
-    border: 5px solid #111111;
-    border-radius: 50%;
-    margin: 0 auto 15px auto;
+.hero {
+    min-height: 520px;
 
     display: flex;
     align-items: center;
-    justify-content: center;
 
-    font-size: 55px;
-
-    box-shadow:
-        6px 7px 0px #111111;
+    padding: 35px 0;
 }
 
 
 /* =========================================================
-   TARJETAS
+   TEXTO IZQUIERDA
    ========================================================= */
 
-.card {
-    background: #fffbea;
-    border: 4px solid #111111;
-    border-radius: 28px;
-
-    padding: 25px;
-
-    box-shadow:
-        7px 8px 0px #111111;
-
-    margin-bottom: 25px;
+.hero-left {
+    padding: 35px 30px 35px 15px;
 }
 
-.card-title {
-    color: #111111;
-    font-size: 24px;
+.small-title {
+    color: #65c7f5;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 20px;
+}
+
+.main-title {
+    color: #ffffff;
+
+    font-size: 88px;
+
+    line-height: 0.92;
+
     font-weight: 900;
-    margin-bottom: 15px;
+
+    letter-spacing: -4px;
+
+    margin: 0 0 25px 0;
+}
+
+.main-title span {
+    color: #ffe45b;
+}
+
+.hero-description {
+    color: #bdbdc5;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+
+    max-width: 520px;
+
+    margin-bottom: 28px;
+}
+
+
+/* =========================================================
+   ETIQUETA
+   ========================================================= */
+
+.tag {
+    display: inline-block;
+
+    background: #ffe45b;
+
+    color: #18181d;
+
+    padding: 9px 17px;
+
+    border-radius: 30px;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   IMAGEN DERECHA
+   ========================================================= */
+
+.image-card {
+
+    background: #f8f8f4;
+
+    border-radius: 35px;
+
+    padding: 18px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.35);
+
+    transform: rotate(1deg);
+
+    overflow: hidden;
+}
+
+.image-card img {
+    border-radius: 25px;
 }
 
 
@@ -135,138 +196,136 @@ h1 {
    CAMPO DE TEXTO
    ========================================================= */
 
+.input-card {
+
+    background: #232329;
+
+    border: 1px solid #34343c;
+
+    border-radius: 26px;
+
+    padding: 28px;
+
+    margin-top: 20px;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.18);
+}
+
+.input-title {
+
+    color: #ffffff;
+
+    font-size: 23px;
+
+    font-weight: 900;
+
+    margin-bottom: 16px;
+}
+
 .stTextInput > div > div > input {
-    background: #ffffff !important;
 
-    color: #111111 !important;
+    background: #f8f8f4 !important;
 
-    border: 4px solid #111111 !important;
+    color: #18181d !important;
+
+    border: 3px solid #ffe45b !important;
 
     border-radius: 16px !important;
+
+    min-height: 58px;
+
+    padding: 15px !important;
 
     font-size: 17px !important;
 
     font-weight: 700 !important;
-
-    padding: 15px !important;
-
-    box-shadow:
-        4px 5px 0px #111111;
 }
 
 .stTextInput label {
-    color: #111111 !important;
-    font-weight: 900 !important;
-    font-size: 17px !important;
+
+    color: #c9c9cf !important;
+
+    font-weight: 700 !important;
 }
 
 
 /* =========================================================
-   BOTÓN ENVIAR
+   BOTÓN ANALIZAR
    ========================================================= */
 
 .stButton {
-    display: flex;
-    justify-content: center;
+    margin-top: 15px;
 }
 
 .stButton > button {
 
     width: 100%;
 
-    min-height: 60px;
+    min-height: 57px;
 
-    background: #32d95b !important;
+    border: none !important;
 
-    color: #111111 !important;
+    border-radius: 17px !important;
 
-    border: 4px solid #111111 !important;
+    background: #ffe45b !important;
 
-    border-radius: 18px !important;
+    color: #18181d !important;
 
-    font-size: 21px !important;
+    font-size: 18px !important;
 
     font-weight: 900 !important;
 
     box-shadow:
-        6px 7px 0px #111111;
+        0 7px 0 #bda62f;
 
-    transition: 0.15s ease;
+    transition: 0.18s ease;
 }
 
 .stButton > button:hover {
 
-    background: #ffe500 !important;
+    background: #65c7f5 !important;
 
-    color: #111111 !important;
+    color: #18181d !important;
 
-    transform: translate(
-        2px,
-        2px
-    );
+    transform: translateY(3px);
 
     box-shadow:
-        3px 4px 0px #111111;
+        0 4px 0 #397c9e;
 }
 
 
 /* =========================================================
-   RESULTADO
+   RESULTADOS
    ========================================================= */
 
-.resultado {
+.result-card {
 
-    background: #ffffff;
+    background: #f8f8f4;
 
-    border: 4px solid #111111;
+    color: #18181d;
 
-    border-radius: 25px;
+    border-radius: 28px;
 
-    padding: 25px;
+    padding: 30px;
+
+    margin-top: 30px;
 
     box-shadow:
-        7px 8px 0px #111111;
-
-    margin-top: 25px;
+        0 20px 45px rgba(0,0,0,0.25);
 }
 
-.resultado-titulo {
+.result-title {
 
-    color: #111111;
+    color: #18181d;
 
-    font-size: 27px;
+    font-size: 28px;
 
     font-weight: 900;
 
     text-align: center;
 
-    margin-bottom: 15px;
-}
-
-
-/* =========================================================
-   VALORES
-   ========================================================= */
-
-.valor {
-
-    background: #ffe500;
-
-    border: 3px solid #111111;
-
-    border-radius: 15px;
-
-    padding: 13px;
-
-    margin: 8px 0;
-
-    color: #111111;
-
-    font-size: 17px;
-
-    font-weight: 900;
-
-    text-align: center;
+    margin-bottom: 20px;
 }
 
 
@@ -274,67 +333,95 @@ h1 {
    ESTADOS
    ========================================================= */
 
-.estado-positivo {
-
-    background: #32d95b;
-
-    border: 4px solid #111111;
+.estado {
 
     border-radius: 20px;
 
-    padding: 18px;
+    padding: 20px;
 
-    color: #111111;
+    text-align: center;
 
     font-size: 25px;
 
     font-weight: 900;
 
-    text-align: center;
-
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 
-.estado-neutral {
+.positivo {
 
-    background: #ffffff;
+    background: #ffe45b;
 
-    border: 4px solid #111111;
+    color: #18181d;
 
-    border-radius: 20px;
-
-    padding: 18px;
-
-    color: #111111;
-
-    font-size: 25px;
-
-    font-weight: 900;
-
-    text-align: center;
-
-    margin: 20px 0;
+    border: 3px solid #18181d;
 }
 
-.estado-negativo {
+.neutral {
 
-    background: #ff4fa3;
+    background: #65c7f5;
 
-    border: 4px solid #111111;
+    color: #18181d;
 
-    border-radius: 20px;
+    border: 3px solid #18181d;
+}
 
-    padding: 18px;
+.negativo {
 
-    color: #111111;
+    background: #ff8d9b;
 
-    font-size: 25px;
+    color: #18181d;
 
-    font-weight: 900;
+    border: 3px solid #18181d;
+}
+
+
+/* =========================================================
+   MÉTRICAS
+   ========================================================= */
+
+.metricas {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+
+    margin-top: 20px;
+}
+
+.metrica {
+
+    background: #e8e8e2;
+
+    border-radius: 18px;
+
+    padding: 20px;
 
     text-align: center;
 
-    margin: 20px 0;
+    color: #18181d;
+}
+
+.metrica-nombre {
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    color: #6d6d74;
+
+    margin-bottom: 7px;
+}
+
+.metrica-valor {
+
+    font-size: 31px;
+
+    font-weight: 900;
+
+    color: #18181d;
 }
 
 
@@ -344,58 +431,24 @@ h1 {
 
 section[data-testid="stSidebar"] {
 
-    background: #ffe500;
+    background: #202026;
 
-    border-right: 4px solid #111111;
+    border-right: 1px solid #38383f;
 }
 
 section[data-testid="stSidebar"] h2,
 section[data-testid="stSidebar"] h3 {
 
-    color: #111111 !important;
+    color: #ffe45b !important;
 
     font-weight: 900 !important;
 }
 
 section[data-testid="stSidebar"] p {
 
-    color: #111111 !important;
+    color: #c7c7cc !important;
 
-    font-weight: 700;
-
-    line-height: 1.6;
-}
-
-
-/* =========================================================
-   EXPANDER
-   ========================================================= */
-
-.streamlit-expanderHeader {
-
-    background: #ffffff !important;
-
-    color: #111111 !important;
-
-    border: 3px solid #111111 !important;
-
-    border-radius: 15px !important;
-
-    font-weight: 900 !important;
-}
-
-
-/* =========================================================
-   ALERTAS
-   ========================================================= */
-
-div[data-testid="stAlert"] {
-
-    border: 3px solid #111111;
-
-    border-radius: 15px;
-
-    color: #111111;
+    line-height: 1.7;
 }
 
 
@@ -403,7 +456,15 @@ div[data-testid="stAlert"] {
    LOTTIE
    ========================================================= */
 
-.lottie-container {
+.lottie-box {
+
+    background: #ffffff;
+
+    border-radius: 25px;
+
+    padding: 15px;
+
+    margin-top: 25px;
 
     display: flex;
 
@@ -412,7 +473,17 @@ div[data-testid="stAlert"] {
 
 
 /* =========================================================
-   BARRA DE DESPLAZAMIENTO
+   DIVISORES
+   ========================================================= */
+
+hr {
+
+    border-color: #33333a;
+}
+
+
+/* =========================================================
+   SCROLLBAR
    ========================================================= */
 
 html {
@@ -420,23 +491,23 @@ html {
     scrollbar-width: thin;
 
     scrollbar-color:
-        #111111
-        #f27dde;
+        #ffe45b
+        #18181d;
 }
 
 ::-webkit-scrollbar {
 
-    width: 12px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
 
-    background: #f27dde;
+    background: #18181d;
 }
 
 ::-webkit-scrollbar-thumb {
 
-    background: #111111;
+    background: #ffe45b;
 
     border-radius: 20px;
 }
@@ -459,40 +530,6 @@ footer {
 
 
 # =========================================================
-# LOGO
-# =========================================================
-
-st.markdown(
-    '<div class="logo-smile">😊</div>',
-    unsafe_allow_html=True
-)
-
-
-# =========================================================
-# TÍTULO
-# =========================================================
-
-st.title("SMILETIME")
-
-st.markdown(
-    '<div class="subtitulo">¿Qué sentimiento tiene tu frase?</div>',
-    unsafe_allow_html=True
-)
-
-
-# =========================================================
-# IMAGEN
-# =========================================================
-
-image = Image.open("emoticones.jpg")
-
-st.image(
-    image,
-    use_container_width=True
-)
-
-
-# =========================================================
 # TRADUCTOR
 # =========================================================
 
@@ -500,50 +537,7 @@ translator = Translator()
 
 
 # =========================================================
-# SIDEBAR
-# =========================================================
-
-with st.sidebar:
-
-    st.subheader("😊 Análisis de sentimiento")
-
-    st.write(
-        """
-        **POLARIDAD**
-
-        Indica si el sentimiento es:
-
-        🟢 Positivo  
-        ⚪ Neutral  
-        🩷 Negativo  
-
-        La polaridad va desde:
-
-        **-1 → 1**
-
-        **SUBJETIVIDAD**
-
-        Mide cuánto expresa:
-
-        💭 Opiniones  
-        ❤️ Emociones  
-        🗣️ Creencias  
-
-        Va desde:
-
-        **0 → 1**
-        """
-    )
-
-    st.markdown("---")
-
-    st.write(
-        "Escribe una frase y presiona **ENVIAR**."
-    )
-
-
-# =========================================================
-# FUNCIÓN PARA CARGAR LOTTIE
+# FUNCIONES
 # =========================================================
 
 def cargar_animacion(nombre):
@@ -567,7 +561,7 @@ def cargar_animacion(nombre):
 
 
 # =========================================================
-# PALABRAS POSITIVAS EN ESPAÑOL
+# PALABRAS POSITIVAS
 # =========================================================
 
 palabras_positivas = {
@@ -634,13 +628,12 @@ palabras_positivas = {
     "hermoso",
     "hermosa",
     "lindo",
-    "linda",
-    "genial"
+    "linda"
 }
 
 
 # =========================================================
-# PALABRAS NEGATIVAS EN ESPAÑOL
+# PALABRAS NEGATIVAS
 # =========================================================
 
 palabras_negativas = {
@@ -695,7 +688,6 @@ palabras_negativas = {
     "feas",
     "decepcionado",
     "decepcionada",
-    "decepcion",
     "decepción",
     "mentira",
     "mentiroso",
@@ -716,16 +708,14 @@ palabras_negativas = {
 
 
 # =========================================================
-# ANALIZAR PALABRAS EN ESPAÑOL
+# ANALIZAR ESPAÑOL
 # =========================================================
 
 def analizar_espanol(texto):
 
-    texto_limpio = texto.lower()
-
     palabras = re.findall(
         r"[a-záéíóúüñ]+",
-        texto_limpio
+        texto.lower()
     )
 
     positivas = 0
@@ -743,28 +733,112 @@ def analizar_espanol(texto):
 
 
 # =========================================================
-# CAMPO DE TEXTO
+# HERO
+# =========================================================
+
+col_izquierda, col_derecha = st.columns(
+    [1.05, 0.95],
+    gap="large"
+)
+
+
+# =========================================================
+# IZQUIERDA
+# =========================================================
+
+with col_izquierda:
+
+    st.markdown(
+        '<div class="hero-left">',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        '<div class="small-title">SENTIMENT ANALYSIS</div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        """
+        <div class="main-title">
+            MORNING<br>
+            <span>FEELINGS.</span>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        """
+        <div class="hero-description">
+            Escribe cualquier frase y descubre si expresa
+            un sentimiento positivo, neutral o negativo.
+            MORNING analiza tus palabras y transforma
+            el resultado en una expresión visual.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        '<div class="tag">😊 DISCOVER YOUR MOOD</div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        '</div>',
+        unsafe_allow_html=True
+    )
+
+
+# =========================================================
+# DERECHA - IMAGEN
+# =========================================================
+
+with col_derecha:
+
+    st.markdown(
+        '<div class="image-card">',
+        unsafe_allow_html=True
+    )
+
+    image = Image.open(
+        "emoticones.jpg"
+    )
+
+    st.image(
+        image,
+        use_container_width=True
+    )
+
+    st.markdown(
+        '</div>',
+        unsafe_allow_html=True
+    )
+
+
+# =========================================================
+# CAMPO DE ANÁLISIS
 # =========================================================
 
 st.markdown(
     """
-    <div class="card">
-        <div class="card-title">
-            💬 Escribe tu frase
+    <div class="input-card">
+        <div class="input-title">
+            💬 ¿Cómo te sientes hoy?
         </div>
     """,
     unsafe_allow_html=True
 )
 
 texto = st.text_input(
-    "Tu mensaje",
-    placeholder="Ejemplo: Me encanta este día, estoy muy feliz 😊",
+    "Escribe tu frase",
+    placeholder="Ejemplo: Hoy estoy muy feliz porque todo salió increíble.",
     label_visibility="collapsed"
 )
 
 enviar = st.button(
-    "🚀 ENVIAR",
-    use_container_width=True
+    "☀️ ANALIZAR SENTIMIENTO"
 )
 
 st.markdown(
@@ -774,7 +848,34 @@ st.markdown(
 
 
 # =========================================================
-# ANALIZAR CUANDO SE PRESIONA ENVIAR
+# SIDEBAR
+# =========================================================
+
+with st.sidebar:
+
+    st.subheader("MORNING")
+
+    st.write(
+        """
+        **Polaridad**
+
+        -1 → Negativo
+
+        0 → Neutral
+
+        1 → Positivo
+
+        **Subjetividad**
+
+        0 → Objetivo
+
+        1 → Subjetivo
+        """
+    )
+
+
+# =========================================================
+# ANALIZAR
 # =========================================================
 
 if enviar:
@@ -782,28 +883,28 @@ if enviar:
     if not texto.strip():
 
         st.warning(
-            "✏️ Primero escribe una frase."
+            "Escribe una frase antes de analizar."
         )
 
     else:
 
         try:
 
-            # =================================================
-            # ANALIZAR PALABRAS EN ESPAÑOL
-            # =================================================
+            # -------------------------------------------------
+            # PALABRAS EN ESPAÑOL
+            # -------------------------------------------------
 
             positivas_es, negativas_es = analizar_espanol(
                 texto
             )
 
 
-            # =================================================
-            # TRADUCIR A INGLÉS
-            # =================================================
+            # -------------------------------------------------
+            # TRADUCCIÓN
+            # -------------------------------------------------
 
             with st.spinner(
-                "😊 Analizando tu frase..."
+                "Analizando..."
             ):
 
                 traduccion = translator.translate(
@@ -815,15 +916,15 @@ if enviar:
                 texto_ingles = traduccion.text
 
 
-                # =================================================
+                # -------------------------------------------------
                 # TEXTBLOB
-                # =================================================
+                # -------------------------------------------------
 
                 blob = TextBlob(
                     texto_ingles
                 )
 
-                polaridad_textblob = (
+                polaridad_blob = (
                     blob.sentiment.polarity
                 )
 
@@ -832,20 +933,15 @@ if enviar:
                 )
 
 
-            # =================================================
-            # DECISIÓN DE SENTIMIENTO
-            # =================================================
-            #
-            # Si las palabras españolas detectan claramente
-            # un sentimiento, se utilizan para reforzarlo.
-            # Si no, se utiliza TextBlob.
-            # =================================================
+            # -------------------------------------------------
+            # DETERMINAR SENTIMIENTO
+            # -------------------------------------------------
 
             if positivas_es > negativas_es:
 
                 polaridad = max(
                     0.1,
-                    round(polaridad_textblob, 2)
+                    round(polaridad_blob, 2)
                 )
 
                 sentimiento = "POSITIVO"
@@ -854,11 +950,14 @@ if enviar:
 
                 archivo_json = "feliz.json"
 
+                clase = "positivo"
+
+
             elif negativas_es > positivas_es:
 
                 polaridad = min(
                     -0.1,
-                    round(polaridad_textblob, 2)
+                    round(polaridad_blob, 2)
                 )
 
                 sentimiento = "NEGATIVO"
@@ -867,10 +966,13 @@ if enviar:
 
                 archivo_json = "triste.json"
 
+                clase = "negativo"
+
+
             else:
 
                 polaridad = round(
-                    polaridad_textblob,
+                    polaridad_blob,
                     2
                 )
 
@@ -882,6 +984,8 @@ if enviar:
 
                     archivo_json = "feliz.json"
 
+                    clase = "positivo"
+
                 elif polaridad < 0:
 
                     sentimiento = "NEGATIVO"
@@ -889,6 +993,8 @@ if enviar:
                     emoji = "😔"
 
                     archivo_json = "triste.json"
+
+                    clase = "negativo"
 
                 else:
 
@@ -898,97 +1004,95 @@ if enviar:
 
                     archivo_json = "normal.json"
 
+                    clase = "neutral"
+
 
             # =================================================
-            # MOSTRAR RESULTADO
+            # RESULTADO
             # =================================================
 
             st.markdown(
-                '<div class="resultado">',
+                """
+                <div class="result-card">
+                """,
                 unsafe_allow_html=True
             )
 
             st.markdown(
-                '<div class="resultado-titulo">'
-                'RESULTADO'
-                '</div>',
+                '<div class="result-title">RESULTADO</div>',
                 unsafe_allow_html=True
             )
-
-
-            # =================================================
-            # ESTADO
-            # =================================================
-
-            if sentimiento == "POSITIVO":
-
-                st.markdown(
-                    f"""
-                    <div class="estado-positivo">
-                        {emoji}<br>
-                        ¡SENTIMIENTO POSITIVO!
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
-
-            elif sentimiento == "NEGATIVO":
-
-                st.markdown(
-                    f"""
-                    <div class="estado-negativo">
-                        {emoji}<br>
-                        SENTIMIENTO NEGATIVO
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
-
-            else:
-
-                st.markdown(
-                    f"""
-                    <div class="estado-neutral">
-                        {emoji}<br>
-                        SENTIMIENTO NEUTRAL
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
-
-
-            # =================================================
-            # VALORES
-            # =================================================
 
             st.markdown(
                 f"""
-                <div class="valor">
-                    📈 Polaridad: {polaridad}
-                </div>
-
-                <div class="valor">
-                    🧠 Subjetividad: {round(subjetividad, 2)}
+                <div class="estado {clase}">
+                    {emoji}<br>
+                    {sentimiento}
                 </div>
                 """,
                 unsafe_allow_html=True
             )
 
 
+            # =================================================
+            # MÉTRICAS
+            # =================================================
+
             st.markdown(
                 f"""
-                <p style="
-                    text-align:center;
-                    font-weight:800;
-                    color:#111111;
-                    font-size:17px;
+                <div class="metricas">
+
+                    <div class="metrica">
+
+                        <div class="metrica-nombre">
+                            POLARIDAD
+                        </div>
+
+                        <div class="metrica-valor">
+                            {polaridad}
+                        </div>
+
+                    </div>
+
+                    <div class="metrica">
+
+                        <div class="metrica-nombre">
+                            SUBJETIVIDAD
+                        </div>
+
+                        <div class="metrica-valor">
+                            {round(subjetividad, 2)}
+                        </div>
+
+                    </div>
+
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+
+            # =================================================
+            # TEXTO ANALIZADO
+            # =================================================
+
+            st.markdown(
+                f"""
+                <div style="
+                    margin-top:20px;
+                    padding:18px;
+                    background:#eeeeea;
+                    border-radius:17px;
+                    color:#18181d;
+                    font-weight:700;
+                    line-height:1.6;
                 ">
+                    <b>Frase analizada:</b><br>
                     "{texto}"
-                </p>
+                </div>
                 """,
                 unsafe_allow_html=True
             )
-
 
             st.markdown(
                 "</div>",
@@ -997,7 +1101,7 @@ if enviar:
 
 
             # =================================================
-            # LOTTIE
+            # ANIMACIÓN
             # =================================================
 
             animation = cargar_animacion(
@@ -1010,12 +1114,12 @@ if enviar:
                     f"""
                     <div style="
                         text-align:center;
-                        color:#111111;
+                        color:#ffffff;
+                        font-size:19px;
                         font-weight:900;
-                        font-size:18px;
-                        margin-top:25px;
+                        margin-top:35px;
                     ">
-                        {emoji} Estado detectado
+                        {emoji} ESTADO DETECTADO
                     </div>
                     """,
                     unsafe_allow_html=True
@@ -1025,7 +1129,7 @@ if enviar:
                     animation,
                     width=350,
                     height=350,
-                    key=f"lottie_{archivo_json}"
+                    key=f"animation_{sentimiento}"
                 )
 
             else:
@@ -1038,7 +1142,7 @@ if enviar:
         except Exception as error:
 
             st.error(
-                "❌ No se pudo analizar la frase."
+                "No se pudo analizar la frase."
             )
 
             st.warning(
