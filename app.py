@@ -34,30 +34,23 @@ st.markdown("""
     box-sizing: border-box;
 }
 
-
-/* =========================================================
-   FONDO NEGRO CON DEGRADADO SUAVE
-   ========================================================= */
-
 .stApp {
     background:
         radial-gradient(
-            circle at 12% 15%,
+            circle at 10% 10%,
             rgba(101, 199, 245, 0.10) 0%,
-            rgba(101, 199, 245, 0.04) 20%,
-            transparent 42%
+            transparent 35%
         ),
         radial-gradient(
-            circle at 88% 78%,
-            rgba(255, 228, 91, 0.09) 0%,
-            rgba(255, 228, 91, 0.03) 22%,
-            transparent 45%
+            circle at 90% 85%,
+            rgba(255, 228, 91, 0.08) 0%,
+            transparent 38%
         ),
         linear-gradient(
             135deg,
-            #121217 0%,
-            #18181d 45%,
-            #1d1d23 100%
+            #111116 0%,
+            #18181d 48%,
+            #202027 100%
         );
 
     color: #ffffff;
@@ -84,13 +77,13 @@ st.markdown("""
 
 
 /* =========================================================
-   TÍTULO PRINCIPAL
+   TÍTULO
    ========================================================= */
 
 .small-title {
     color: #65c7f5;
     font-size: 15px;
-    font-weight: 800;
+    font-weight: 900;
     letter-spacing: 4px;
     margin-bottom: 18px;
 }
@@ -144,7 +137,7 @@ st.markdown("""
 
 
 /* =========================================================
-   TARJETA DE ENTRADA
+   CAMPO DE TEXTO
    ========================================================= */
 
 .input-card {
@@ -162,11 +155,6 @@ st.markdown("""
     font-weight: 900;
     margin-bottom: 16px;
 }
-
-
-/* =========================================================
-   INPUT
-   ========================================================= */
 
 .stTextInput > div > div > input {
 
@@ -270,7 +258,7 @@ st.markdown("""
 
 
 /* =========================================================
-   ESTADOS
+   ESTADO
    ========================================================= */
 
 .estado {
@@ -368,6 +356,28 @@ st.markdown("""
 
 
 /* =========================================================
+   FRASE
+   ========================================================= */
+
+.frase-card {
+
+    margin-top: 20px;
+
+    padding: 18px;
+
+    background: #eeeeea;
+
+    border-radius: 17px;
+
+    color: #18181d;
+
+    font-weight: 700;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
    SIDEBAR
    ========================================================= */
 
@@ -383,14 +393,6 @@ section[data-testid="stSidebar"] {
     border-right: 1px solid #34343c;
 }
 
-section[data-testid="stSidebar"] h2,
-section[data-testid="stSidebar"] h3 {
-
-    color: #ffe45b !important;
-
-    font-weight: 900 !important;
-}
-
 section[data-testid="stSidebar"] p {
 
     color: #d0d0d5 !important;
@@ -401,38 +403,27 @@ section[data-testid="stSidebar"] p {
 }
 
 .sidebar-title {
+
     color: #65c7f5;
+
     font-size: 23px;
+
     font-weight: 900;
+
     margin-bottom: 20px;
 }
 
 .sidebar-section-title {
+
     color: #ffe45b;
+
     font-size: 18px;
+
     font-weight: 900;
+
     margin-top: 20px;
+
     margin-bottom: 8px;
-}
-
-
-/* =========================================================
-   ANIMACIÓN
-   ========================================================= */
-
-.lottie-box {
-
-    background: #ffffff;
-
-    border-radius: 25px;
-
-    padding: 15px;
-
-    margin-top: 25px;
-
-    display: flex;
-
-    justify-content: center;
 }
 
 
@@ -441,20 +432,26 @@ section[data-testid="stSidebar"] p {
    ========================================================= */
 
 html {
+
     scrollbar-width: thin;
+
     scrollbar-color: #ffe45b #18181d;
 }
 
 ::-webkit-scrollbar {
+
     width: 10px;
 }
 
 ::-webkit-scrollbar-track {
+
     background: #18181d;
 }
 
 ::-webkit-scrollbar-thumb {
+
     background: #ffe45b;
+
     border-radius: 20px;
 }
 
@@ -471,19 +468,35 @@ footer {
     visibility: hidden;
 }
 
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .main .block-container {
+
+        padding: 30px 22px 60px 22px;
+    }
+
+    .main-title {
+
+        font-size: 58px;
+    }
+
+    .metricas {
+
+        grid-template-columns: 1fr;
+    }
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 
 # =========================================================
-# TRADUCTOR
-# =========================================================
-
-translator = Translator()
-
-
-# =========================================================
-# FUNCIÓN PARA CARGAR ANIMACIONES
+# FUNCIÓN PARA CARGAR JSON
 # =========================================================
 
 def cargar_animacion(nombre):
@@ -507,10 +520,11 @@ def cargar_animacion(nombre):
 
 
 # =========================================================
-# PALABRAS POSITIVAS
+# PALABRAS POSITIVAS EN ESPAÑOL
 # =========================================================
 
 palabras_positivas = {
+
     "feliz",
     "felices",
     "felicidad",
@@ -578,10 +592,11 @@ palabras_positivas = {
 
 
 # =========================================================
-# PALABRAS NEGATIVAS
+# PALABRAS NEGATIVAS EN ESPAÑOL
 # =========================================================
 
 palabras_negativas = {
+
     "triste",
     "tristes",
     "tristeza",
@@ -655,29 +670,71 @@ palabras_negativas = {
 # ANALIZAR PALABRAS EN ESPAÑOL
 # =========================================================
 
-def analizar_espanol(texto):
+def contar_palabras_espanol(texto):
 
     palabras = re.findall(
         r"[a-záéíóúüñ]+",
         texto.lower()
     )
 
-    positivas = 0
-    negativas = 0
+    positivas = sum(
+        1
+        for palabra in palabras
+        if palabra in palabras_positivas
+    )
 
-    for palabra in palabras:
-
-        if palabra in palabras_positivas:
-            positivas += 1
-
-        if palabra in palabras_negativas:
-            negativas += 1
+    negativas = sum(
+        1
+        for palabra in palabras
+        if palabra in palabras_negativas
+    )
 
     return positivas, negativas
 
 
 # =========================================================
-# HERO
+# SIDEBAR
+# =========================================================
+
+with st.sidebar:
+
+    st.markdown(
+        '<div class="sidebar-title">Polaridad y Subjetividad</div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        """
+        <div class="sidebar-section-title">
+            Polaridad
+        </div>
+
+        <p>
+        Indica si el sentimiento expresado en el texto
+        es positivo, negativo o neutral. Su valor oscila
+        entre <b>-1</b> (muy negativo) y <b>1</b>
+        (muy positivo), con <b>0</b> representando
+        un sentimiento neutral.
+        </p>
+
+        <div class="sidebar-section-title">
+            Subjetividad
+        </div>
+
+        <p>
+        Mide cuánto del contenido es subjetivo
+        (opiniones, emociones, creencias) frente a
+        objetivo (hechos). Va de <b>0</b> a <b>1</b>,
+        donde <b>0</b> es completamente objetivo y
+        <b>1</b> es completamente subjetivo.
+        </p>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+# =========================================================
+# CABECERA
 # =========================================================
 
 col_izquierda, col_derecha = st.columns(
@@ -687,7 +744,7 @@ col_izquierda, col_derecha = st.columns(
 
 
 # =========================================================
-# PARTE IZQUIERDA
+# IZQUIERDA
 # =========================================================
 
 with col_izquierda:
@@ -726,29 +783,37 @@ with col_izquierda:
 
 
 # =========================================================
-# PARTE DERECHA
+# DERECHA - IMAGEN
 # =========================================================
 
 with col_derecha:
 
-    st.markdown(
-        '<div class="image-card">',
-        unsafe_allow_html=True
-    )
+    if os.path.exists("emoticones.jpg"):
 
-    image = Image.open(
-        "emoticones.jpg"
-    )
+        st.markdown(
+            '<div class="image-card">',
+            unsafe_allow_html=True
+        )
 
-    st.image(
-        image,
-        use_container_width=True
-    )
+        image = Image.open(
+            "emoticones.jpg"
+        )
 
-    st.markdown(
-        '</div>',
-        unsafe_allow_html=True
-    )
+        st.image(
+            image,
+            use_container_width=True
+        )
+
+        st.markdown(
+            '</div>',
+            unsafe_allow_html=True
+        )
+
+    else:
+
+        st.warning(
+            "No se encontró el archivo emoticones.jpg"
+        )
 
 
 # =========================================================
@@ -766,15 +831,18 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+
 texto = st.text_input(
     "Escribe tu frase",
     placeholder="Ejemplo: Hoy estoy muy feliz porque todo salió increíble.",
     label_visibility="collapsed"
 )
 
+
 enviar = st.button(
     "☀️ ANALIZAR SENTIMIENTO"
 )
+
 
 st.markdown(
     "</div>",
@@ -783,49 +851,7 @@ st.markdown(
 
 
 # =========================================================
-# SIDEBAR - INDICACIONES
-# =========================================================
-
-with st.sidebar:
-
-    st.markdown(
-        '<div class="sidebar-title">Polaridad y Subjetividad</div>',
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        """
-        <div class="sidebar-section-title">
-            Polaridad
-        </div>
-
-        <p>
-        Indica si el sentimiento expresado en el texto
-        es positivo, negativo o neutral.
-        Su valor oscila entre <b>-1</b> (muy negativo)
-        y <b>1</b> (muy positivo), con <b>0</b>
-        representando un sentimiento neutral.
-        </p>
-
-        <div class="sidebar-section-title">
-            Subjetividad
-        </div>
-
-        <p>
-        Mide cuánto del contenido es subjetivo
-        (opiniones, emociones, creencias) frente a
-        objetivo (hechos).
-        Va de <b>0</b> a <b>1</b>, donde <b>0</b>
-        es completamente objetivo y <b>1</b>
-        es completamente subjetivo.
-        </p>
-        """,
-        unsafe_allow_html=True
-    )
-
-
-# =========================================================
-# ANALIZAR AL PRESIONAR EL BOTÓN
+# ANALIZAR
 # =========================================================
 
 if enviar:
@@ -844,7 +870,7 @@ if enviar:
             # PALABRAS EN ESPAÑOL
             # -------------------------------------------------
 
-            positivas_es, negativas_es = analizar_espanol(
+            positivas_es, negativas_es = contar_palabras_espanol(
                 texto
             )
 
@@ -854,16 +880,24 @@ if enviar:
             # -------------------------------------------------
 
             with st.spinner(
-                "Analizando..."
+                "Analizando sentimiento..."
             ):
 
-                traduccion = translator.translate(
-                    texto,
-                    src="es",
-                    dest="en"
-                )
+                translator = Translator()
 
-                texto_ingles = traduccion.text
+                try:
+
+                    traduccion = translator.translate(
+                        texto,
+                        src="es",
+                        dest="en"
+                    )
+
+                    texto_ingles = traduccion.text
+
+                except Exception:
+
+                    texto_ingles = texto
 
 
                 # -------------------------------------------------
@@ -958,98 +992,60 @@ if enviar:
 
 
             # =================================================
-            # TARJETA DE RESULTADO
-            # =================================================
-
-            st.markdown(
-                '<div class="result-card">',
-                unsafe_allow_html=True
-            )
-
-            st.markdown(
-                '<div class="result-title">RESULTADO</div>',
-                unsafe_allow_html=True
-            )
-
-
-            # =================================================
-            # ESTADO
+            # RESULTADO
             # =================================================
 
             st.markdown(
                 f"""
-                <div class="estado {clase}">
-                    {emoji}<br>
-                    {sentimiento}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+                <div class="result-card">
 
+                    <div class="result-title">
+                        RESULTADO
+                    </div>
 
-            # =================================================
-            # MÉTRICAS - CORREGIDAS
-            # =================================================
+                    <div class="estado {clase}">
+                        {emoji}<br>
+                        {sentimiento}
+                    </div>
 
-            st.markdown(
-                f"""
-                <div class="metricas">
+                    <div class="metricas">
 
-                    <div class="metrica">
+                        <div class="metrica">
 
-                        <div class="metrica-nombre">
-                            POLARIDAD
+                            <div class="metrica-nombre">
+                                POLARIDAD
+                            </div>
+
+                            <div class="metrica-valor">
+                                {polaridad}
+                            </div>
+
                         </div>
 
-                        <div class="metrica-valor">
-                            {polaridad}
+                        <div class="metrica">
+
+                            <div class="metrica-nombre">
+                                SUBJETIVIDAD
+                            </div>
+
+                            <div class="metrica-valor">
+                                {round(subjetividad, 2)}
+                            </div>
+
                         </div>
 
                     </div>
 
-                    <div class="metrica">
+                    <div class="frase-card">
 
-                        <div class="metrica-nombre">
-                            SUBJETIVIDAD
-                        </div>
+                        <b>Frase analizada:</b><br>
 
-                        <div class="metrica-valor">
-                            {round(subjetividad, 2)}
-                        </div>
+                        "{texto}"
 
                     </div>
 
                 </div>
                 """,
-                unsafe_allow_html=True
-            )
-
-
-            # =================================================
-            # FRASE ANALIZADA
-            # =================================================
-
-            st.markdown(
-                f"""
-                <div style="
-                    margin-top:20px;
-                    padding:18px;
-                    background:#eeeeea;
-                    border-radius:17px;
-                    color:#18181d;
-                    font-weight:700;
-                    line-height:1.6;
-                ">
-                    <b>Frase analizada:</b><br>
-                    "{texto}"
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-
-            st.markdown(
-                "</div>",
                 unsafe_allow_html=True
             )
 
@@ -1061,6 +1057,7 @@ if enviar:
             animation = cargar_animacion(
                 archivo_json
             )
+
 
             if animation:
 
@@ -1083,13 +1080,13 @@ if enviar:
                     animation,
                     width=350,
                     height=350,
-                    key=f"animation_{sentimiento}"
+                    key=f"animation_{archivo_json}"
                 )
 
             else:
 
-                st.error(
-                    f"No se encontró {archivo_json}"
+                st.warning(
+                    f"No se encontró el archivo {archivo_json}."
                 )
 
 
